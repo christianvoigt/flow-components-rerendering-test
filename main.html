@@ -1,0 +1,37 @@
+<head>
+  <title>flow-components-rerendering-test</title>
+</head>
+
+<body>
+<h3>Template:</h3>
+<div>
+{{>parentTemplate}}
+</div>
+<h3>Flow Component:</h3>
+<div>
+{{> render component="parent-component"}}
+</div>
+<p><a href="#" id="add-greeting">Insert "Buon giorno!" into Greetings.</a></p>
+<p><a href="#" id="change-greeting">Update text: change "Guten Tag!" to "Buon giorno!".</a></p>
+</body>
+
+<template name="parentTemplate">
+{{#each greetings}}
+{{>greetingTemplate greetingText=this.text}}
+{{/each}}
+</template>
+
+<template name="greetingTemplate">
+	<div>{{greetingText}}</div>
+</template>
+
+<template name="parent-component">
+{{#each state$greetings}}
+{{>render component="greeting-component" greetingText=this.text}}
+{{/each}}
+</template>
+
+<template name="greeting-component">
+	<div>{{state$greetingText}}</div>
+</template>
+
